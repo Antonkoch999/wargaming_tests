@@ -1,0 +1,52 @@
+t, k = tuple(map(lambda x: int(x), input().split()))
+lst = [(int(m), int(n)) for m, n in input().split() for _ in range(1, t + 1)]
+
+
+def func_(list_):
+    for el in list_:
+        moves = sum(el) - 2
+        minimal_cells = min(el) - 1
+        diagonals = (minimal_cells - 1) // k
+        cells_left = (minimal_cells - 1) % k
+        if not moves:
+            return False
+
+        if moves % 2:
+            if not diagonals:
+                return
+            if diagonals == 1:
+                if minimal_cells - 1 <= k:
+                    return
+                return False
+            if diagonals % 2:
+                if not cells_left:
+                    return
+                if cells_left % 2:
+                    return False
+                return
+            else:
+                if not cells_left:
+                    return False
+                if cells_left % 2:
+                    return
+                return
+        else:
+            if not diagonals:
+                return False
+            if diagonals == 1:
+                return
+            if diagonals % 2:
+                if not cells_left:
+                    return False
+                if cells_left % 2:
+                    return False
+                return
+            else:
+                if not cells_left:
+                    return
+                if cells_left % 2:
+                    return
+                return False
+
+
+print('-') if func_(lst) else print('+')
